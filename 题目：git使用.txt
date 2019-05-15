@@ -96,6 +96,10 @@ rsa_id.pub
 其次,使用git push origin master完成推送
 >git push origin master -f
 
-十五、
+十五、clone github 仓库
+>git clone 仓库地址
+
+
+
 查看文件:
 >cat 文件名
