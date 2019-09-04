@@ -1,0 +1,7 @@
+$_SERVER['REQUEST_URI']	==	获取当前URL地址
+
+Url::build		==	生成一个路由
+
+redirect		==	跳转
+
+location.href		==	跳转链接

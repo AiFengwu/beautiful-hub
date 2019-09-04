@@ -1,0 +1,214 @@
+一、AJAX = 异步 JavaScript 和 XML。
+
+二、为了应对所有的现代浏览器，包括 IE5 和 IE6，请检查浏览器是否支持 XMLHttpRequest 对象。
+如果支持，则创建 XMLHttpRequest 对象。如果不支持，则创建 ActiveXObject ：
+
+var xmlhttp
+
+if(window.XMLHttpRequest){
+
+ 	//  IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+	xmlhttp = new XMLHttprequest();
+}else{
+
+	// IE6, IE5 浏览器执行代码
+	xmlhttp = new ActiveXObject("Microsoft.XmlHTTP");
+
+}
+
+三、向服务器发送请求
+
+	xmlhttp.open("GET","ajax_info.txt",true);
+
+	xmlhttp.send();
+
+	readyState			规定请求的类型、URL 以及是否异步处理请求。
+
+					method：请求的类型；GET 或 POST
+		
+					url：文件在服务器上的位置
+
+					async：true（异步）或 false（同步）
+
+
+	send(string)			将请求发送到服务器。
+
+					string：仅用于 POST 请求
+
+	setRequestHeader(header,value)	向请求添加 HTTP 头。
+
+					header: 规定头的名称
+
+					value: 规定头的值
+
+	responseText			获得字符串形式的响应数据。
+
+	responseXML			获得 XML 形式的响应数据。
+
+	onreadystatechange		存储函数(或函数名),
+					每当 readyState 属性改变时,就会调用该函数。
+
+	readyState			存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。
+
+					0: 请求未初始化
+
+					1: 服务器连接已建立
+		
+					2: 请求已接收
+
+					3: 请求处理中
+
+					4: 请求已完成，且响应已就绪
+
+	status				200: "OK"
+
+					404: 未找到页面
+
+	
+四、GET POST 选择
+
+	与 POST 相比，GET 更简单也更快，并且在大部分情况下都能用。
+
+	然而，在以下情况中，请使用 POST 请求：
+
+	1、无法使用缓存文件（更新服务器上的文件或数据库）
+
+	2、向服务器发送大量数据（POST 没有数据量限制）
+
+	3、发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠
+
+
+五、
+	Async=true
+
+	当使用 async=true 时，请规定在响应处于 onreadystatechange 事件中的
+	就绪状态时执行的函数：
+
+	Async = false
+
+	如需使用 async=false，请将 open() 方法中的第三个参数改为 false：
+
+	不推荐使用 async=false，但是对于一些小型的请求，也是可以的。
+
+	JavaScript 会等到服务器响应就绪才继续执行。
+	如果服务器繁忙或缓慢，应用程序会挂起或停止。
+
+	使用 async=false 时，请不要编写 onreadystatechange 函数 - 
+	把代码放到 send() 语句后面即可：
+
+
+	如果来自服务器的响应并非 XML，请使用 responseText 属性。
+
+	responseText 属性返回字符串形式的响应，因此您可以这样使用：
+
+	如果来自服务器的响应是 XML，而且需要作为 XML 对象进行解析，
+	请使用 responseXML 属性：
+
+	在 onreadystatechange 事件中，
+	我们规定当服务器响应已做好被处理的准备时所执行的任务。
+
+	当 readyState 等于 4 且状态为 200 时，表示响应已就绪：
+	
+	onreadystatechange 事件被触发 4 次（0 - 4）, 分别是： 
+	0-1、1-2、2-3、3-4，对应着 readyState 的每个变化。
+
+	回调函数是一种以参数形式传递给另一个函数的函数。
+
+	如果您的网站上存在多个 AJAX 任务，
+	那么您应该为创建 XMLHttpRequest 对象编写一个标准的函数，
+	并为每个 AJAX 任务调用该函数。
+
+	该函数调用应该包含 URL 以及发生 onreadystatechange 事件时执行的任务
+	（每次调用可能不尽相同）
+
+	当用户在上面的输入框中键入字符时，会执行函数 "showHint()" 。
+	该函数由 "onkeyup" 事件触发：
+
+
+
+	如果输入框为空 str.length==0，则该函数清空 txtHint 占位符的内容，并退出函数。
+
+	如果输入框不为空，showHint() 函数执行以下任务：
+
+	创建 XMLHttpRequest 对象
+
+	当服务器响应就绪时执行函数
+
+	把请求发送到服务器上的文件
+
+	请注意我们向 URL 添加了一个参数 q （带有输入框的内容）
+
+	由上面的 JavaScript 调用的服务器页面是 ASP 文件，名为 "gethint.asp"。
+
+	下面，我们创建了两个版本的服务器文件，一个用 ASP 编写，另一个用 PHP 编写。
+
+	void abort()						停止当前请求
+
+
+	String getAllresponseHeadders()				以字符串把HTTP请求的所有响应首部作为键值对返回
+
+
+	String getResponseheader("")				返回指定首部字段的字符串
+
+
+	void open(string method,string url,			建立对服务器的调用，初始化请求的纯脚本方法,
+	boolean asynch,string username,string password)		第三个参数表示调用为异步(true)还是同步(false),默认异步
+
+
+	void send(content)					向服务器发出请求，如果声明异步，立即返回，否则等待接收到响应为之，
+								可选参数可以是DOM对象的实例，输入流，或字符串，
+								传入这个方法的内容会作为请求的一部分发送
+
+
+	void setRequestHeader(string header,string value)	把指定的首部设置为所提供的值，在设置任何首部前必须先调用open()后才可调用
+
+
+	onreaddystatechange					每个状态改变时都会触发这个事件处理器，通常会调用事件处理函数
+
+
+	readystate						请求的状态，0(未初始化)，1(正在加载)，2(已加载)，3(交互中)，4(完成)
+
+
+	responseText						返回服务器的响应，表示为一个字符串
+
+
+	responseXML						返回服务器的响应，表示为xml，可以解析为DOM对象
+
+	
+	status							服务器的HTTP状态码
+
+
+	statusText						服务器状态码对应原因短语
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
